@@ -29,7 +29,7 @@ namespace fidt17.UnityValidationModule.Runtime
                 {
                     var t = unityObject.name;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return true;
                 }
@@ -38,6 +38,7 @@ namespace fidt17.UnityValidationModule.Runtime
             return false;
         }
 
+        #if UNITY_EDITOR
         /// <summary>
         /// Checks if object is a part of a prefab that wasn't instantiated (is an asset)
         /// </summary>
@@ -46,6 +47,7 @@ namespace fidt17.UnityValidationModule.Runtime
             if (value == null) return false;
             return PrefabUtility.IsPartOfPrefabAsset(value) && !PrefabUtility.IsPartOfPrefabInstance(value);
         }
+        #endif
 
         /// <summary>
         /// Returns GameObject if provided value is a GameObject or a MonoBehaviour component on a GameObject
@@ -60,7 +62,7 @@ namespace fidt17.UnityValidationModule.Runtime
                 {
                     return mono.gameObject;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     throw new Exception($"Could get GameObject from {unityObject.GetType()}");
                 }

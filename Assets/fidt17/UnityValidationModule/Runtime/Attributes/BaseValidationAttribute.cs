@@ -15,7 +15,11 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes
         public bool ShouldValidate(Object target)
         {
             if (!(target is UnityEngine.Object unityObject)) return true;
+            #if UNITY_EDITOR
             return _validateInPrefab || !unityObject.IsAssetPrefab();
+            #else
+            return true;
+            #endif
         } 
     }
 }
