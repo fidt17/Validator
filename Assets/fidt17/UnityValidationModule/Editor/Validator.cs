@@ -19,7 +19,10 @@ namespace fidt17.UnityValidationModule.Editor
         public static IEnumerable<ValidationResult> Validate(System.Object validationTarget, List<System.Object> alreadyValidated = null, Object lastContext = null)
         {
             if (validationTarget == null) yield break;
-            alreadyValidated ??= new List<System.Object>();
+            if (alreadyValidated == null)
+            {
+                alreadyValidated = new List<System.Object>();
+            }
             alreadyValidated.Add(validationTarget);
             
             //Field Validation
