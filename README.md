@@ -1,4 +1,4 @@
-# UnityExtensionsModule
+# UnityValidationModule
 ## Version : 1.0.2
 
 ## Installation
