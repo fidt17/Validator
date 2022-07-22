@@ -51,23 +51,24 @@ namespace fidt17.UnityValidationModule.Runtime
 
         /// <summary>
         /// Returns GameObject if provided value is a GameObject or a MonoBehaviour component on a GameObject
-        /// Throws an exception otherwise
+        /// Returns null otherwise
         /// </summary>
         public static GameObject CastToGameObject(UnityEngine.Object unityObject)
         {
             if (unityObject is GameObject go) return go;
-            if (unityObject is MonoBehaviour mono)
+            if (unityObject is Component component)
             {
                 try
                 {
-                    return mono.gameObject;
+                    return component.gameObject;
                 }
                 catch (Exception)
                 {
-                    throw new Exception($"Could get GameObject from {unityObject.GetType()}");
+                    return null;
                 }
             }
-            throw new Exception($"Could get GameObject from {unityObject.GetType()}");
+
+            return null;
         }
     }
 }

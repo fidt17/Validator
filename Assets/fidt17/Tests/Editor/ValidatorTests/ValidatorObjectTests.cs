@@ -5,6 +5,7 @@ using fidt17.UnityValidationModule.Runtime.Attributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes;
 using NUnit.Framework;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace fidt17.UnityValidationModule.Tests.Editor.ValidatorTests
@@ -57,13 +58,6 @@ namespace fidt17.UnityValidationModule.Tests.Editor.ValidatorTests
         {
             var instance = new TestNonValidatableClass();
             Assert.That(Validator.Validate(instance).Count() == 0);
-        }
-
-        [Test]
-        public void TestValidateOnValidatableObject()
-        {
-            var instance = new TestValidatableClass();
-            Assert.That(Validator.Validate(instance).Count() == 4);
         }
 
         [Test]

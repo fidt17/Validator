@@ -92,6 +92,7 @@ namespace fidt17.UnityValidationModule.Editor
             }
 
 
+            float t = Time.realtimeSinceStartup;
             int yieldCounter = 0;
             foreach (var validationResult in getVLFunction.Invoke())
             {
@@ -106,8 +107,10 @@ namespace fidt17.UnityValidationModule.Editor
                     await Task.Yield();
                 }
             }
+            Debug.Log($"Total: {Time.realtimeSinceStartup - t}");
 
             await ProcessResults(validationResults);
+            
             newlyOpenedScenes.ForEach(x => EditorSceneManager.CloseScene(x, true));
             
             _validationRunning = false;

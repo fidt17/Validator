@@ -39,27 +39,24 @@ namespace fidt17.UnityValidationModule.Editor.Helpers
         {
             if (t == null) throw new ArgumentNullException();
 
-            var results = new List<FieldInfo>();
+            var results = new HashSet<string>();
             
             foreach (var field in t.GetFields(b))
             {
                 if (!Attribute.GetCustomAttributes(field).Any(x => x is FieldValidationAttribute)) continue;
-                if (results.Exists(x => x.Name == field.Name)) continue;
-                results.Add(field);
+                if (results.Contains(field.Name)) continue;
+                results.Add(field.Name);
+                yield return field;
             }
             
             if (t.BaseType != null)
             {
                 foreach (var field in t.BaseType.GetValidationFields())
                 {
-                    if (results.Exists(x => x.Name == field.Name)) continue;
-                    results.Add(field);
+                    if (results.Contains(field.Name)) continue;
+                    results.Add(field.Name);
+                    yield return field;
                 }                
-            }
-            
-            foreach (var fieldInfo in results)
-            {
-                yield return fieldInfo;
             }
         }
 
@@ -71,27 +68,24 @@ namespace fidt17.UnityValidationModule.Editor.Helpers
         {
             if (t == null) throw new ArgumentNullException();
 
-            var results = new List<MethodInfo>();
+            var results = new HashSet<string>();
             
             foreach (var method in t.GetMethods(b))
             {
                 if (!Attribute.GetCustomAttributes(method).Any(x => x is BaseMethodValidationAttribute)) continue;
-                if (results.Exists(x => x.Name == method.Name)) continue;
-                results.Add(method);
+                if (results.Contains(method.Name)) continue;
+                results.Add(method.Name);
+                yield return method;
             }
 
             if (t.BaseType != null)
             {
                 foreach (var method in t.BaseType.GetValidationMethods())
                 {
-                    if (results.Exists(x => x.Name == method.Name)) continue;
-                    results.Add(method);
+                    if (results.Contains(method.Name)) continue;
+                    results.Add(method.Name);
+                    yield return method;
                 }   
-            }
-
-            foreach (var method in results)
-            {
-                yield return method;
             }
         }
 
