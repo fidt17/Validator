@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Reflection;
-using fidt17.UnityValidationModule.Runtime.Attributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes;
 using NUnit.Framework;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.AttributeTests
+namespace fidt17.Tests.Editor.AttributeTests
 {
     public class ValidationMethodAttributeTests
     {

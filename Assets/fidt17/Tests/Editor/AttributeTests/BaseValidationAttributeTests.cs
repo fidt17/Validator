@@ -1,9 +1,9 @@
-﻿using fidt17.UnityValidationModule.Runtime.Attributes;
-using fidt17.UnityValidationModule.Tests.Runtime;
+﻿using fidt17.Tests.Runtime;
+using fidt17.UnityValidationModule.Runtime.Attributes;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.AttributeTests
+namespace fidt17.Tests.Editor.AttributeTests
 {
     public class BaseValidationAttributeTests
     {

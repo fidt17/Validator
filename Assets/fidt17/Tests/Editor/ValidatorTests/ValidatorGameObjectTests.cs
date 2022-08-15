@@ -4,7 +4,7 @@ using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.ValidatorTests
+namespace fidt17.Tests.Editor.ValidatorTests
 {
     public class ValidatorGameObjectTests
     {

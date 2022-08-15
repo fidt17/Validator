@@ -3,7 +3,7 @@ using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes;
 using UnityEngine;
 
-namespace fidt17.UnityValidationModule.Tests.Runtime
+namespace fidt17.Tests.Runtime
 {
     //[CreateAssetMenu(menuName = "TestScriptableObject")]
     public class TestScriptableObject : TestScriptableObjectParent

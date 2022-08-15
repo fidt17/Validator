@@ -7,7 +7,7 @@ using NUnit.Framework;
 using UnityEngine;
 using Object = System.Object;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.ReflectionTests
+namespace fidt17.Tests.Editor.ReflectionTests
 {
     public class AttributesSearchTests
     {

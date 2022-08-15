@@ -4,7 +4,7 @@ namespace fidt17.UnityValidationModule.Editor.Helpers
 {
     public static class ValidatorEditorConstants
     {
-        public static readonly Vector2 ValidatorWindowSize = new Vector2(500, 600);
+        public static readonly Vector2 ValidatorWindowSize = new Vector2(500, 700);
         
         public const int MessageFontSize = 12;
         public const int MaxLengthOfContextName = 45;

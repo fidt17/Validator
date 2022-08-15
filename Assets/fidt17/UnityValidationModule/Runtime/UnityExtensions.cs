@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace fidt17.UnityValidationModule.Runtime
 {
@@ -36,6 +37,31 @@ namespace fidt17.UnityValidationModule.Runtime
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Analyses unityEvent's subscribers and detects if any of them are invalid
+        /// </summary>
+        public static bool IsUnityEventValid(UnityEvent unityEvent)
+        {
+            if (unityEvent == null) return false;
+
+            for (int i = 0; i < unityEvent.GetPersistentEventCount(); i++)
+            {
+                var target = unityEvent.GetPersistentTarget(i);
+                if (IsUnityNull(target)) return false;
+
+                var methodName = unityEvent.GetPersistentMethodName(i);
+                if (string.IsNullOrEmpty(methodName)) return false;
+                
+                var type = Type.GetType(target.GetType().FullName);
+                if (type == null) return false;
+
+                var method = type.GetMethod(methodName);
+                if (method == null) return false;
+            }
+            
+            return true;
         }
 
         #if UNITY_EDITOR

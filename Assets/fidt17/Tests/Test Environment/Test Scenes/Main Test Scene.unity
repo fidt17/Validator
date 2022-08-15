@@ -166,6 +166,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36fcf16572d82184d9159fdf7140cd1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnityEventA:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _nonPrefabInstance: {fileID: 1501072883035145145}
   _prefabInstance: {fileID: 739356320}
   _prefabAsset: {fileID: 17790441436316962, guid: 112aff2edcadd794e817bf22f0d5cc90, type: 3}
@@ -266,6 +281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a782ac245a45f7a67e84fabc4391ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UnityEventA:
+    m_PersistentCalls:
+      m_Calls: []
   _nonPrefabInstance: {fileID: 0}
   _prefabInstance: {fileID: 0}
   _prefabAsset: {fileID: 0}

@@ -10,6 +10,10 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes
     {
         private readonly string _message;
 
+        public ValidationMethodAttribute() : this("")
+        {
+        }
+        
         public ValidationMethodAttribute(string message = "")
         {
             _message = message;

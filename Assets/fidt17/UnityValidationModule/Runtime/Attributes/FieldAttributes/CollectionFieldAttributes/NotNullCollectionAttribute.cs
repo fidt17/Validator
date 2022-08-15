@@ -5,10 +5,15 @@ using System.Reflection;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using Object = System.Object;
 
-namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
+namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.CollectionFieldAttributes
 {
     public class NotNullCollectionAttribute : NotNullValidationAttribute
     {
+        public NotNullCollectionAttribute() : this(true, true)
+        {
+            
+        }
+        
         public NotNullCollectionAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
         {
             
@@ -18,7 +23,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
         {
             if (field.FieldType.GetInterfaces().All(x => x != typeof(ICollection)))
             {
-                throw new Exception($"Incorrect [NotNullCollection] attribute usage on {field.Name} @ {target.GetType()}. Field must derive from ICollection");
+                return new FailResult($"Incorrect [NotNullCollection] attribute usage on {field.Name} @ {target.GetType()}. Field must derive from ICollection", target);
             }
             
             var baseResult = base.ValidateField(field, target);
@@ -26,7 +31,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
             
             foreach (var o in (ICollection) field.GetValue(target))
             {
-                if (o == null)
+                if (UnityExtensions.IsUnityNull(o))
                 {
                     return new FailResult($"Element of collection of type {field.FieldType} on {target.GetType()} is missing.", target);
                 }

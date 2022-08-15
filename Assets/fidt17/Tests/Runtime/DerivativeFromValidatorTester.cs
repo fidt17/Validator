@@ -1,4 +1,4 @@
-﻿namespace fidt17.UnityValidationModule.Tests.Runtime
+﻿namespace fidt17.Tests.Runtime
 {
     public class DerivativeFromValidatorTester : ValidatorTester
     {

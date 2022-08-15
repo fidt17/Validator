@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Reflection;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
+using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.CollectionFieldAttributes;
 using NUnit.Framework;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.AttributeTests
+namespace fidt17.Tests.Editor.AttributeTests
 {
     public class NotNullCollectionAttributeTests
     {
@@ -33,10 +34,10 @@ namespace fidt17.UnityValidationModule.Tests.Editor.AttributeTests
         {
             var instance = new TestClass();
             var f = instance.GetType().GetField(nameof(TestClass.IncorrectField));
-            Assert.Throws<Exception>(() =>
+            Assert.That(() =>
             {
                 var attribute = (NotNullValidationAttribute) f.GetCustomAttribute(typeof(NotNullValidationAttribute));
-                attribute.ValidateField(f, instance);
+                return attribute.ValidateField(f, instance).Result == false;
             });
         }
 

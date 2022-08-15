@@ -39,16 +39,25 @@ namespace fidt17.UnityValidationModule.Editor.Helpers
             if (str == null) return "";
             var maxCharactersPerLine = (int) (maxWidth / fontSize * 2f);
             var result = "";
-            var words = str.Split(' ');
-            foreach (var word in words)
+
+            var charCount = 0;
+            for (var i = 0; i < str.Length; i++)
             {
-                var wordLength = word.Length;
-                if (result.Length + wordLength > maxCharactersPerLine)
+                result += str[i];
+                if (str[i] != '\n')
+                {
+                    charCount++;
+                }
+                else
+                {
+                    charCount = 0;
+                }
+                
+                if (charCount == maxCharactersPerLine)
                 {
                     result += "\n";
+                    charCount = 0;
                 }
-
-                result += word + " "; 
             }
 
             return result;

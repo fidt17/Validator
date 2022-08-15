@@ -5,6 +5,11 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
 {
     public class NotNullValidationAttribute : FieldValidationAttribute
     {
+        public NotNullValidationAttribute() : this(true, true)
+        {
+            
+        }
+        
         public NotNullValidationAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
         {
             

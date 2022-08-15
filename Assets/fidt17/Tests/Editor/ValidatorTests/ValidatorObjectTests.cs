@@ -1,14 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using fidt17.UnityValidationModule.Editor;
-using fidt17.UnityValidationModule.Runtime.Attributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes;
 using NUnit.Framework;
-using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.ValidatorTests
+namespace fidt17.Tests.Editor.ValidatorTests
 {
     public class ValidatorObjectTests
     {

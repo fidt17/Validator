@@ -87,7 +87,17 @@ namespace fidt17.UnityValidationModule.Editor
                             Attribute = validationAttribute,
                             Method = validationMethod
                         });
-                        yield return validationAttribute.ValidateMethod(validationMethod, validationTarget);
+
+                        ValidationResult r;
+                        try
+                        {
+                            r = validationAttribute.ValidateMethod(validationMethod, validationTarget);
+                        }
+                        catch (Exception e)
+                        {
+                            r = new FailResult($"Validation Failed with exception:\n {e}", targetContext: validationTarget);
+                        }
+                        yield return r;
                     }
                 }
                 _cachedValidationMethods.Add(validationTargetType, l);
@@ -146,7 +156,17 @@ namespace fidt17.UnityValidationModule.Editor
             {
                 var attribute = validationMethods[i].Attribute;
                 var method = validationMethods[i].Method;
-                yield return attribute.ValidateMethod(method, validationTarget);
+                
+                ValidationResult r;
+                try
+                {
+                    r = attribute.ValidateMethod(method, validationTarget);
+                }
+                catch (Exception e)
+                {
+                    r = new FailResult($"Validation Failed with exception:\n {e}", targetContext: validationTarget);
+                }
+                yield return r;
             }
         }
         

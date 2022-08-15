@@ -3,7 +3,7 @@ using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using NUnit.Framework;
 using Object = System.Object;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.AttributeTests
+namespace fidt17.Tests.Editor.AttributeTests
 {
     public class NotNullValidationAttributeTests
     {

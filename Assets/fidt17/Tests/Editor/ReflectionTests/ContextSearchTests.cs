@@ -4,9 +4,8 @@ using fidt17.UnityValidationModule.Editor.Helpers;
 using fidt17.UnityValidationModule.Editor.ValidationResultDrawers;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using NUnit.Framework;
-using UnityEngine;
 
-namespace fidt17.UnityValidationModule.Tests.Editor.ReflectionTests
+namespace fidt17.Tests.Editor.ReflectionTests
 {
     public class ContextSearchTests
     {

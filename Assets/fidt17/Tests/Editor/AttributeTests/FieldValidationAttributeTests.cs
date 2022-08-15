@@ -1,4 +1,4 @@
-﻿namespace fidt17.UnityValidationModule.Tests.Editor.AttributeTests
+﻿namespace fidt17.Tests.Editor.AttributeTests
 {
     public class FieldValidationAttributeTests
     {
