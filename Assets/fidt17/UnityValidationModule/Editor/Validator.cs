@@ -173,11 +173,22 @@ namespace fidt17.UnityValidationModule.Editor
         public static IEnumerable<ValidationResult> Validate(GameObject gameObject)
         {
             if (gameObject == null) yield break;
-            foreach (var monoBehaviour in gameObject.GetComponentsInChildren<MonoBehaviour>())
+
+            var validationList = new List<GameObject>();
+            validationList.Add(gameObject);
+            foreach (Transform t in gameObject.transform)
             {
-                foreach (var validationResult in Validate(monoBehaviour))
+                validationList.Add(t.gameObject);
+            }
+
+            foreach (GameObject obj in validationList)
+            {
+                foreach (var monoBehaviour in obj.GetComponents<MonoBehaviour>())
                 {
-                    yield return validationResult;
+                    foreach (var validationResult in Validate(monoBehaviour))
+                    {
+                        yield return validationResult;
+                    }
                 }
             }
         }

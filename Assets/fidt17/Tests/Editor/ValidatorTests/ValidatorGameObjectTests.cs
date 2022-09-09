@@ -28,10 +28,30 @@ namespace fidt17.Tests.Editor.ValidatorTests
         {
             var obj = new GameObject();
             obj.AddComponent<TestMonoValidatable>();
-            
+
             Assert.That(Validator.Validate(obj).Count() == 1);
 
             Object.DestroyImmediate(obj);
+        }
+
+        [Test]
+        public void TestValidateDisabledNestedGameObject()
+        {
+            var obj = new GameObject();
+            var childEnabled = new GameObject();
+            childEnabled.transform.SetParent(obj.transform);
+            childEnabled.AddComponent<TestMonoValidatable>();
+            
+            var childDisabled = new GameObject();
+            childDisabled.transform.SetParent(obj.transform);
+            childDisabled.AddComponent<TestMonoValidatable>();
+            childDisabled.gameObject.SetActive(false);
+            
+            Assert.That(Validator.Validate(obj).Count() == 2);
+            
+            Object.DestroyImmediate(obj);
+            Object.DestroyImmediate(childEnabled);
+            Object.DestroyImmediate(childDisabled);
         }
         
         [Test]
