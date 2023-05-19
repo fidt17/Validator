@@ -15,7 +15,7 @@ namespace fidt17.UnityValidationModule.Editor.ContextParsers
             
             ResultMessage = ValidatorEditorUtils.SplitStringInLinesToFit(vl.Message,
                             ValidatorEditorConstants.MessageFontSize,
-                            ValidatorEditorConstants.ValidatorWindowSize.x);
+                            ValidatorEditorConstants.ValidatorWindowSize.x - 20);
         }
 
         public override IValidationResultDrawer GetDrawer() => new BasicResultDrawer(this);

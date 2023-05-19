@@ -17,7 +17,6 @@ namespace fidt17.UnityValidationModule.Editor
         private static List<BaseResultParser> _resultParsers;
 
         private static int _currentResultsPage;
-        private static bool _tryStartingValidation;
         private static int _totalValidations;
         private static int _processedResults;
         private static bool _validationRunning;
@@ -32,19 +31,22 @@ namespace fidt17.UnityValidationModule.Editor
         {
             if (Application.isPlaying || _validationRunning) return;
 
-            _tryStartingValidation = true;
-            ShowWindow();
+            var window = ShowWindow();
+            window.StartValidationOperation();
         }
         
         [MenuItem("Tools/Validator/Validator Window")]
-        private static void ShowWindow()
+        private static ValidatorWindow ShowWindow()
         {
-            if (Application.isPlaying) return;
+            if (Application.isPlaying) return null;
 
             var window = GetWindow<ValidatorWindow>("Validator");
             window.minSize = ValidatorEditorConstants.ValidatorWindowSize;
             window.maxSize = ValidatorEditorConstants.ValidatorWindowSize;
             window.Show();
+            Validator.Reset();
+
+            return window;
         }
 
         private void OnDestroy()
@@ -58,7 +60,6 @@ namespace fidt17.UnityValidationModule.Editor
         {
             if (_validationRunning) return;
 
-            _tryStartingValidation = false;
             _validationRunning = true;
 
             _totalValidations = 0;
@@ -185,7 +186,7 @@ namespace fidt17.UnityValidationModule.Editor
             });
             EditorGUI.EndDisabledGroup();
 
-            if (_tryStartingValidation || wasRunValidatorButtonPressed)
+            if (wasRunValidatorButtonPressed)
             {
                 StartValidationOperation();
             }

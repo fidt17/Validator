@@ -4,7 +4,8 @@ namespace fidt17.UnityValidationModule.Editor.Helpers
 {
     public static class ValidatorEditorConstants
     {
-        public static readonly Vector2 ValidatorWindowSize = new Vector2(500, 700);
+        public static readonly Vector2 ValidatorWindowSize = new Vector2(550, 700);
+        public static readonly Vector2 ValidatorSettingsWindowSize = new Vector2(240, 150);
         
         public const int MessageFontSize = 12;
         public const int MaxLengthOfContextName = 45;
@@ -16,6 +17,8 @@ namespace fidt17.UnityValidationModule.Editor.Helpers
         public const string PingButtonTextureName = "InArrows";
         public const string NextPageButtonTextureName = "ArrowRight";
         public const string PreviousPageButtonTextureName = "ArrowLeft";
+
+        public const string ValidatorSettingsName = "ValidatorSettings";
         
         public const int MaxResultsForPage = 12;
     }

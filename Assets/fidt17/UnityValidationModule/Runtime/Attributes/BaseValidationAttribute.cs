@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 
 namespace fidt17.UnityValidationModule.Runtime.Attributes
 {
