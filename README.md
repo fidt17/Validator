@@ -1,5 +1,5 @@
 # UnityValidationModule
-## Version : 1.0.4
+## Version : 1.0.5
 
 ## Installation
 1) Unity Package Manager
@@ -8,10 +8,21 @@
 
 ## How to use
 
-You can run validator either by pressing [Alt+V] 
-<br> Or by navigating to "Tools/Validator/Validator Window"
+Run validator either by pressing [Alt+V] or by navigating to "Tools/Validator/Validator Window"
 
 ![](Screenshots/Validator%20Window%20Screenshot%20Main.png?raw=true))
+
+Specify Validation mode by selecting one of the options from dropdown menu
+- "Active Scene": Validate all objects on loaded scene
+- "In Build Scenes": Validate all objects across all build scenes. You will be asked to save current scene if required
+- "Project Assets": Validate all Prefabs and ScriptableObjects
+- "Everything": Validate "In Build Scene" + "Project Assets"
+
+## Settings
+
+Validator settings can be found at "Tools/Validator/Validator Settings"
+- "Run Validator on build":  If enabled will start Validator in "Everything" mode before each new build
+- "Stop build on Validator failure":  If enabled an exception will be thrown once Validator finds an error. Which should cancel active build process
 
 ## Validation Attributes
 
