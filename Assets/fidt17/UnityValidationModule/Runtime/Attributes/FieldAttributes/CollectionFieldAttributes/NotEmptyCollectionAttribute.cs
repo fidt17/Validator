@@ -15,7 +15,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
             
         }
         
-        public NotEmptyCollectionAttribute(bool allowNullElements = true, bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
+        public NotEmptyCollectionAttribute(bool allowNullElements = false, bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
         {
             _allowNullElements = allowNullElements;
         }
