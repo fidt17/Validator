@@ -1,12 +1,13 @@
 ﻿using System;
 using fidt17.UnityValidationModule.Editor.ContextParsers;
+using fidt17.UnityValidationModule.Editor.Helpers;
 using UnityEditor;
 
 namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 {
     public class SceneObjectResultDrawer : BasicResultDrawer
     {
-        private SceneObjectResultParser _parser;
+        private readonly SceneObjectResultParser _parser;
 
         public SceneObjectResultDrawer(DefaultResultParser parser) : base(parser)
         {
@@ -19,5 +20,13 @@ namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 
         protected override string GetContextName() => _parser.ContextName;
         protected override string GetScopeInformation() => _parser.SceneName;
+        
+        protected override string GetResultMessage()
+        {
+            var path = ValidatorEditorUtils.SplitStringInLinesToFit($"Path: {_parser.Path}", ValidatorEditorConstants.MessageFontSize,
+                ValidatorEditorConstants.ValidatorWindowSize.x - 20);
+            return $"{path}" +
+                   $"\n{base.GetResultMessage()}";
+        }
     }
 }

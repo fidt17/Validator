@@ -1,4 +1,5 @@
 ﻿using System;
+using fidt17.UnityValidationModule.Editor.Helpers;
 using fidt17.UnityValidationModule.Editor.ValidationResultDrawers;
 using fidt17.UnityValidationModule.Runtime;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
@@ -10,11 +11,21 @@ namespace fidt17.UnityValidationModule.Editor.ContextParsers
     public class PrefabObjectResultParser : UnityObjectResultParser
     {
         public readonly GameObject Prefab;
+        public readonly string Path;
         
         public PrefabObjectResultParser(ValidationResult vl) : base(vl)
         {
             if (vl == null) throw new ArgumentNullException();
-            Prefab = UnityExtensions.CastToGameObject(GetUnityContext(vl));
+            var go = UnityExtensions.CastToGameObject(GetUnityContext(vl));
+
+            var node = go.transform.parent;
+            while (node.parent != null)
+            {
+                node = node.parent;
+            }
+            Prefab = node.gameObject;
+
+            Path = AbsoluteGameObjectPath.FormPathToRoot(go);
         }
 
         public override IValidationResultDrawer GetDrawer() => new PrefabObjectResultDrawer(this);
