@@ -4,7 +4,7 @@
 ## Installation
 1) Unity Package Manager
 2) Add package from git URL:
-3) https://github.com/fidt17/UnityValidationModule.git?path=/Assets/fidt17/UnityValidationModule
+3) https://github.com/fidt17/Validator.git?path=/Assets/fidt17/UnityValidationModule
 
 ## How to use
 
