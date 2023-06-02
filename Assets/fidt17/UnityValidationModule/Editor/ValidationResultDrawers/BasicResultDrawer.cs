@@ -1,5 +1,4 @@
-﻿using System;
-using fidt17.UnityValidationModule.Editor.ContextParsers;
+﻿using fidt17.UnityValidationModule.Editor.ContextParsers;
 using fidt17.UnityValidationModule.Editor.Helpers;
 using UnityEditor;
 using UnityEngine;
@@ -8,16 +7,11 @@ namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 {
     public class BasicResultDrawer : IValidationResultDrawer
     {
-        private DefaultResultParser _parser;
+        private readonly DefaultResultParser _parser;
 
         public BasicResultDrawer(DefaultResultParser parser)
         {
             _parser = parser;
-        }
-
-        [Obsolete]
-        public virtual void Setup(DefaultResultParser parser)
-        {
         }
 
         public virtual void DrawValidationResult()

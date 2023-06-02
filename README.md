@@ -1,5 +1,5 @@
-# UnityValidationModule
-## Version : 1.0.5
+# Unity Validator
+## Version : 1.0.6
 
 ## Installation
 1) Unity Package Manager
