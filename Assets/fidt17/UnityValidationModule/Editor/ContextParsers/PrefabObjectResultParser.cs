@@ -19,11 +19,18 @@ namespace fidt17.UnityValidationModule.Editor.ContextParsers
             var go = UnityExtensions.CastToGameObject(GetUnityContext(vl));
 
             var node = go.transform.parent;
-            while (node.parent != null)
+            if (node != null)
             {
-                node = node.parent;
+                while (node.parent != null)
+                {
+                    node = node.parent;
+                }
+                Prefab = node.gameObject;
             }
-            Prefab = node.gameObject;
+            else
+            {
+                Prefab = go;
+            }
 
             Path = AbsoluteGameObjectPath.FormPathToRoot(go);
         }
