@@ -71,7 +71,9 @@ namespace fidt17.UnityValidationModule.Runtime
         public static bool IsAssetPrefab(this UnityEngine.Object value)
         {
             if (value == null) return false;
-            return PrefabUtility.IsPartOfAnyPrefab(value) && !PrefabUtility.IsPartOfPrefabInstance(value);
+            var isPartOfAnyPrefab = PrefabUtility.IsPartOfAnyPrefab(value);
+            var isPartyOfNonAssetPrefabInstance = PrefabUtility.IsPartOfNonAssetPrefabInstance(value);
+            return isPartOfAnyPrefab && !isPartyOfNonAssetPrefabInstance;
         }
         #endif
 
