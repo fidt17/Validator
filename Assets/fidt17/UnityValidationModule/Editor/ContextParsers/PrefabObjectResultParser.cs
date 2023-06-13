@@ -56,7 +56,13 @@ namespace fidt17.UnityValidationModule.Editor.ContextParsers
                 return false;
             }
 
-            return gameObject.IsAssetPrefab();
+            var root = gameObject;
+            while (root.transform.parent != null)
+            {
+                root = root.transform.parent.gameObject;
+            }
+
+            return root.IsAssetPrefab();
         }
     }
 }
