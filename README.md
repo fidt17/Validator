@@ -1,5 +1,5 @@
 # Unity Validator
-## Version : 1.0.7
+## Version : 1.0.8
 
 ## Installation
 1) Unity Package Manager
@@ -20,7 +20,6 @@ Specify Validation mode by selecting one of the options from dropdown menu
 
 ## Settings
 
-Validator settings can be found at "Tools/Validator/Validator Settings"
 - "Run Validator on build":  If enabled will start Validator in "Everything" mode before each new build
 - "Stop build on Validator failure":  If enabled an exception will be thrown once Validator finds an error. Which should cancel active build process
 
