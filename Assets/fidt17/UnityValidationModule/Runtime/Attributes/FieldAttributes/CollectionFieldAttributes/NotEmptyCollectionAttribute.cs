@@ -34,7 +34,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
             
             if (collection.Count == 0)
             {
-                return new FailResult($"Collection mustn't be empty.");
+                return new FailResult($"Collection {field.Name} on {target.GetType().Name} must not be empty.", target);
             }
 
             if (_allowNullElements == false)
@@ -43,7 +43,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
                 {
                     if (UnityExtensions.IsUnityNull(o))
                     {
-                        return new FailResult($"Element of collection of type {field.FieldType} on {target.GetType()} is missing.", target);
+                        return new FailResult($"Element of collection of type {field.FieldType} on {target.GetType().Name} is missing.", target);
                     }
                 }   
             }
