@@ -10,7 +10,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
     {
         private readonly bool _allowNullElements;
         
-        public NotEmptyCollectionAttribute() : this(true, true, true)
+        public NotEmptyCollectionAttribute() : this(false, true, true)
         {
             
         }
