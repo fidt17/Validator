@@ -55,6 +55,7 @@ namespace fidt17.UnityValidationModule.Editor.Views
 			_adaptiveYieldStep = 10;
             
 			EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+			AssetDatabase.Refresh();
 
 			var validationResults = new List<ValidationResult>();
 			var newlyOpenedScenes = new List<Scene>();
