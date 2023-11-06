@@ -33,7 +33,6 @@ namespace fidt17.UnityValidationModule.Editor
 			window.maxSize = ValidatorEditorConstants.ValidatorWindowSize;
 			window.Show();
 			
-			Validator.Reset();
 			window.Setup();
 			
 			return window;

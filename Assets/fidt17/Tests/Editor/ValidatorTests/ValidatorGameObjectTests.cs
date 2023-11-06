@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using fidt17.UnityValidationModule.Editor;
+using fidt17.UnityValidationModule.Editor.ValidationScopes;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using NUnit.Framework;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
         {
             var obj = new GameObject();
             
-            Assert.That(() => !Validator.Validate(obj).Any());
+            Assert.That(() => !ValidationUtils.ValidateGameObject(obj).Any());
 
             Object.DestroyImmediate(obj);
         }
@@ -29,7 +30,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
             var obj = new GameObject();
             obj.AddComponent<TestMonoValidatable>();
 
-            Assert.That(Validator.Validate(obj).Count() == 1);
+            Assert.That(ValidationUtils.ValidateGameObject(obj).Count() == 1);
 
             Object.DestroyImmediate(obj);
         }
@@ -47,7 +48,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
             childDisabled.AddComponent<TestMonoValidatable>();
             childDisabled.gameObject.SetActive(false);
             
-            Assert.That(Validator.Validate(obj).Count() == 2);
+            Assert.That(ValidationUtils.ValidateGameObject(obj).Count() == 2);
             
             Object.DestroyImmediate(obj);
             Object.DestroyImmediate(childEnabled);
@@ -61,7 +62,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
             obj.AddComponent<TestMonoValidatable>();
             obj.AddComponent<TestMonoValidatable>();
             
-            Assert.That(Validator.Validate(obj).Count() == 2);
+            Assert.That(ValidationUtils.ValidateGameObject(obj).Count() == 2);
 
             Object.DestroyImmediate(obj);
         }
@@ -74,7 +75,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
             child.transform.SetParent(rootObj.transform);
             child.AddComponent<TestMonoValidatable>();
             
-            Assert.That(Validator.Validate(rootObj).Count() == 1);
+            Assert.That(ValidationUtils.ValidateGameObject(rootObj).Count() == 1);
             
             Object.DestroyImmediate(rootObj);
         }
@@ -88,7 +89,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
             child.transform.SetParent(rootObj.transform);
             child.AddComponent<TestMonoValidatable>();
             
-            Assert.That(Validator.Validate(rootObj).Count() == 2);
+            Assert.That(ValidationUtils.ValidateGameObject(rootObj).Count() == 2);
             
             Object.DestroyImmediate(rootObj);
         }

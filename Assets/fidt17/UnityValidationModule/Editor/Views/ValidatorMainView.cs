@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using fidt17.UnityValidationModule.Editor.ContextParsers;
 using fidt17.UnityValidationModule.Editor.Helpers;
+using fidt17.UnityValidationModule.Editor.ValidationScopes;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -61,23 +62,23 @@ namespace fidt17.UnityValidationModule.Editor.Views
             var validationResults = new List<ValidationResult>();
             var newlyOpenedScenes = new List<Scene>();
 
-            Func<IEnumerable<ValidationResult>> getVLFunction = null;
+            Func<IEnumerable<ValidationResult>> getVLFunction = ValidationUtils.ValidateActiveScene;
             switch (_settings.SelectedScope)
             {
                 case ValidationScopeEnum.ActiveScene:
-                    getVLFunction = Validator.ValidateActiveScene;
+                    getVLFunction = ValidationUtils.ValidateActiveScene;
                     break;
                 
                 case ValidationScopeEnum.InBuildScenes:
-                    getVLFunction = () => Validator.ValidateInBuildScenes(newlyOpenedScenes, closeScenes: false);
+                    getVLFunction = () => ValidationUtils.ValidateInBuildScenes(newlyOpenedScenes, closeScenes: false);
                     break;
                 
                 case ValidationScopeEnum.ProjectAssets:
-                    getVLFunction = Validator.ValidateProjectAssets;
+                    getVLFunction = ValidationUtils.ValidateProjectAssets;
                     break;
                 
                 case ValidationScopeEnum.Everything:
-                    getVLFunction = () => Validator.ValidateEverything(newlyOpenedScenes, closeScenes: false);
+                    getVLFunction = () => ValidationUtils.ValidateEverything(newlyOpenedScenes, closeScenes: false);
                     break;
             }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using fidt17.UnityValidationModule.Editor.ValidationScopes;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -21,7 +22,7 @@ namespace fidt17.UnityValidationModule.Editor
 			Debug.Log("Run prebuild validator");
 			
 			var openScenes = new List<Scene>();
-			Func<IEnumerable<ValidationResult>> validationFunction = () => Validator.ValidateEverything(openScenes);
+			Func<IEnumerable<ValidationResult>> validationFunction = () => ValidationUtils.ValidateEverything(openScenes);
 
 			var results = validationFunction.Invoke().ToList();
 			var clearResults = new List<ValidationResult>();
