@@ -8,7 +8,7 @@ using UnityEngine;
 namespace fidt17.UnityValidationModule.Editor.ContextParsers
 {
     [ValidationResultParser(typeof(UnityEngine.Object))]
-    public class PrefabObjectResultParser : UnityObjectResultParser
+    internal class PrefabObjectResultParser : UnityObjectResultParser
     {
         public readonly GameObject Prefab;
         public readonly string Path;

@@ -1,6 +1,6 @@
 ﻿namespace fidt17.UnityValidationModule.Editor
 {
-    public enum ValidationScopeEnum
+    internal enum ValidationScopeEnum
     {
         /// <summary>
         /// Validate all objects on current scene

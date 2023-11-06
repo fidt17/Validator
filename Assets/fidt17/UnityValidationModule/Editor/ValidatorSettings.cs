@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace fidt17.UnityValidationModule.Editor
 {
-    public class ValidatorSettings : ScriptableObject
+    internal class ValidatorSettings : ScriptableObject
     {
         public bool RunValidatorOnBuild
         {

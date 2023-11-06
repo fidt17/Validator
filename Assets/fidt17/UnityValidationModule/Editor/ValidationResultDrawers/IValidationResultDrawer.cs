@@ -1,6 +1,6 @@
 ﻿namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 {
-    public interface IValidationResultDrawer
+    internal interface IValidationResultDrawer
     {
         void DrawValidationResult();
     }

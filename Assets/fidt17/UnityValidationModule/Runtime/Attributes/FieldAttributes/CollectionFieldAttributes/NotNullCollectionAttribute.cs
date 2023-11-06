@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
+﻿using System.Collections;
 using System.Reflection;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using Object = System.Object;
@@ -9,19 +7,13 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
 {
     public class NotNullCollectionAttribute : NotNullValidationAttribute
     {
-        public NotNullCollectionAttribute() : this(true, true)
-        {
-            
-        }
+        public NotNullCollectionAttribute() : this(true) { }
         
-        public NotNullCollectionAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
-        {
-            
-        }
+        public NotNullCollectionAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation) { }
         
         public override ValidationResult ValidateField(FieldInfo field, Object target)
         {
-            if (field.FieldType.GetInterfaces().All(x => x != typeof(ICollection)))
+            if (!(field.GetValue(target) is ICollection collection))
             {
                 return new FailResult($"Incorrect [NotNullCollection] attribute usage on {field.Name} @ {target.GetType()}. Field must derive from ICollection", target);
             }
@@ -29,9 +21,9 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
             var baseResult = base.ValidateField(field, target);
             if (baseResult.Result == false) return baseResult;
             
-            foreach (var o in (ICollection) field.GetValue(target))
+            foreach (var element in collection)
             {
-                if (UnityExtensions.IsUnityNull(o))
+                if (UnityExtensions.IsUnityNull(element))
                 {
                     return new FailResult($"Element of collection of type {field.FieldType} on {target.GetType()} is missing.", target);
                 }

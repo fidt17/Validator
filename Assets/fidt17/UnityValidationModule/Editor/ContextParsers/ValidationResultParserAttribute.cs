@@ -3,7 +3,7 @@
 namespace fidt17.UnityValidationModule.Editor.ContextParsers
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class ValidationResultParserAttribute : Attribute
+    internal class ValidationResultParserAttribute : Attribute
     {
         public readonly Type ValueContextType;
         

@@ -5,7 +5,7 @@ using UnityEditor;
 
 namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 {
-    public class SceneObjectResultDrawer : BasicResultDrawer
+    internal class SceneObjectResultDrawer : BasicResultDrawer
     {
         private readonly SceneObjectResultParser _parser;
 

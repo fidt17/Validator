@@ -5,7 +5,7 @@ using fidt17.UnityValidationModule.Runtime.ValidationResults;
 
 namespace fidt17.UnityValidationModule.Editor.ContextParsers
 {
-    public class DefaultResultParser : BaseResultParser
+    internal class DefaultResultParser : BaseResultParser
     {
         public readonly string ResultMessage;
         

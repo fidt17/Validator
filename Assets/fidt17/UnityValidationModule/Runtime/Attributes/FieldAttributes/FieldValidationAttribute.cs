@@ -11,8 +11,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
 
         public virtual ValidationResult ValidateField(FieldInfo field, Object target) => new PassResult(targetContext: target);
 
-        public FieldValidationAttribute() : this(true, true)
-        { }
+        public FieldValidationAttribute() : this(true) { }
         
         public FieldValidationAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab)
         {

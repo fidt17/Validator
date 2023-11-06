@@ -55,10 +55,10 @@ namespace fidt17.Tests.Editor.AttributeTests
         {
             var instance = new TestClass();
             var m = instance.GetType().GetMethod(nameof(TestClass.WrongReturnTypeValidationMethod));
-            Assert.Throws<Exception>(() =>
+            Assert.That(() =>
             {
                 var attribute = (ValidationMethodAttribute) m.GetCustomAttribute(typeof(ValidationMethodAttribute));
-                attribute.ValidateMethod(m, instance);
+                return attribute.ValidateMethod(m, instance).Result == false;
             });
         }
         
@@ -67,10 +67,10 @@ namespace fidt17.Tests.Editor.AttributeTests
         {
             var instance = new TestClass();
             var m = instance.GetType().GetMethod(nameof(TestClass.WrongArgumentsValidationMethod));
-            Assert.Throws<Exception>(() =>
+            Assert.That(() =>
             {
                 var attribute = (ValidationMethodAttribute) m.GetCustomAttribute(typeof(ValidationMethodAttribute));
-                attribute.ValidateMethod(m, instance);
+                return attribute.ValidateMethod(m, instance).Result == false;
             });
         }
     }

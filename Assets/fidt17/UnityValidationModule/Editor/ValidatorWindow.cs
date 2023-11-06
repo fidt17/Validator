@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace fidt17.UnityValidationModule.Editor
 {
-	public class ValidatorWindow : EditorWindow
+	internal class ValidatorWindow : EditorWindow
 	{
 		private bool _isSetup;
 		private ValidatorMenuView _menuView;

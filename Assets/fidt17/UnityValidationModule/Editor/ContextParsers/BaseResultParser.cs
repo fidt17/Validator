@@ -3,7 +3,7 @@ using fidt17.UnityValidationModule.Runtime.ValidationResults;
 
 namespace fidt17.UnityValidationModule.Editor.ContextParsers
 {
-    public abstract class BaseResultParser
+    internal abstract class BaseResultParser
     {
         public BaseResultParser(ValidationResult vl)
         {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using fidt17.UnityValidationModule.Editor.Helpers;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes;
@@ -13,9 +14,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
+[assembly: InternalsVisibleTo("UnityValidationModule.Tests")]
+[assembly: InternalsVisibleTo("UnityValidationModule.Tests.Editor")]
+
 namespace fidt17.UnityValidationModule.Editor
 {
-    public static class Validator
+    internal static class Validator
     {
         private static Dictionary<Type, List<FieldAttributePair>> _cachedValidationFields;
         private static Dictionary<Type, List<MethodAttributePair>> _cachedValidationMethods;

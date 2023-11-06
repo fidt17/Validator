@@ -5,15 +5,9 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
 {
     public class NotNullValidationAttribute : FieldValidationAttribute
     {
-        public NotNullValidationAttribute() : this(true, true)
-        {
-            
-        }
+        public NotNullValidationAttribute() : this(true) { }
         
-        public NotNullValidationAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
-        {
-            
-        }
+        public NotNullValidationAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation) { }
 
         public override ValidationResult ValidateField(FieldInfo field, System.Object target)
         {
@@ -22,10 +16,8 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
             {
                 return new FailResult($"Field \"{field.Name}\" of {target.GetType().Name} is missing.", target);
             }
-            else
-            {
-                return new PassResult(targetContext: target);
-            }
+
+            return new PassResult(targetContext: target);
         }
     }
 }

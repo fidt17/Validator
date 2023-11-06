@@ -7,7 +7,7 @@ using UnityEngine;
 namespace fidt17.UnityValidationModule.Editor.ContextParsers
 {
     [ValidationResultParser(typeof(Object))]
-    public class SceneObjectResultParser : UnityObjectResultParser
+    internal class SceneObjectResultParser : UnityObjectResultParser
     {
         public readonly string SceneName;
         public readonly string Path;

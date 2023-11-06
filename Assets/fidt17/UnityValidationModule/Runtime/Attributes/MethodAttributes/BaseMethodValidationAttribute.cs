@@ -7,10 +7,8 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes
     [AttributeUsage(AttributeTargets.Method)]
     public abstract class BaseMethodValidationAttribute : BaseValidationAttribute
     {
-        public abstract ValidationResult ValidateMethod(MethodInfo method, System.Object target);
+        public abstract ValidationResult ValidateMethod(MethodInfo method, object target);
 
-        protected BaseMethodValidationAttribute(bool validateInPrefab = true) : base(validateInPrefab)
-        {
-        }
+        protected BaseMethodValidationAttribute(bool validateInPrefab = true) : base(validateInPrefab) { }
     }
 }

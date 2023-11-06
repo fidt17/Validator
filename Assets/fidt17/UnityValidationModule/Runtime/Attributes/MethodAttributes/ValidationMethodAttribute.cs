@@ -10,9 +10,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes
     {
         private readonly string _message;
 
-        public ValidationMethodAttribute() : this("")
-        {
-        }
+        public ValidationMethodAttribute() : this("") { }
         
         public ValidationMethodAttribute(string message = "")
         {
@@ -23,12 +21,12 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes
         {
             if (method.ReturnType != typeof(bool))
             {
-                throw new Exception($"Incorrect [ValidationMethod] attribute usage on {method.Name} @ {target.GetType()}. Method must return bool.");
+                return new FailResult($"Incorrect [ValidationMethod] attribute usage on {method.Name} @ {target.GetType()}. Method must return bool.", target);
             }
 
             if (method.GetParameters().Length != 0)
             {
-                throw new Exception($"Incorrect [ValidationMethod] attribute usage on {method.Name} @ {target.GetType()}. Method mustn't have parameters.");
+                return new FailResult($"Incorrect [ValidationMethod] attribute usage on {method.Name} @ {target.GetType()}. Method mustn't have parameters.", target);
             }
 
             var result = (bool) method.Invoke(target, null);

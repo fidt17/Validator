@@ -11,7 +11,7 @@ using UnityEngine.Assertions.Must;
 
 namespace fidt17.UnityValidationModule.Editor.Helpers
 {
-    public static class ReflectionExtensions
+    internal static class ReflectionExtensions
     {
         private const BindingFlags b = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         private static List<Type> _cachedParserTypes;

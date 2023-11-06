@@ -2,7 +2,7 @@
 
 namespace fidt17.UnityValidationModule.Editor.Helpers
 {
-    public static class ValidatorEditorUtils
+    internal static class ValidatorEditorUtils
     {
         /// <summary>
         /// Generates a GUIStyle with background color of provided value.

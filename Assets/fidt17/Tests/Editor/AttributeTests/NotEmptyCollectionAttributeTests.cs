@@ -12,7 +12,7 @@ namespace fidt17.Tests.Editor.AttributeTests
         {
             [NotEmptyCollection] public List<Object> NullField;
             [NotEmptyCollection] public Object IncorrectField;
-            [NotEmptyCollection] public List<string> ListCollection = new List<string>();
+            [NotEmptyCollection(allowNullElements: true)] public List<string> ListCollection = new List<string>();
             [NotEmptyCollection(allowNullElements: false)] public List<string> ListCollectionNoNullElements = new List<string>();
         }
         
@@ -45,10 +45,10 @@ namespace fidt17.Tests.Editor.AttributeTests
         {
             var instance = new TestClass();
             var f = instance.GetType().GetField(nameof(TestClass.IncorrectField));
-            Assert.Throws<Exception>(() =>
+            Assert.That(() =>
             {
                 var attribute = (NotEmptyCollectionAttribute) f.GetCustomAttribute(typeof(NotEmptyCollectionAttribute));
-                attribute.ValidateField(f, instance);
+                return attribute.ValidateField(f, instance).Result == false;
             });
         }
         

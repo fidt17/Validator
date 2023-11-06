@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 {
-    public class BasicResultDrawer : IValidationResultDrawer
+    internal class BasicResultDrawer : IValidationResultDrawer
     {
         private readonly DefaultResultParser _parser;
 

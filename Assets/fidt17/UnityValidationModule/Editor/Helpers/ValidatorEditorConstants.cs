@@ -2,7 +2,7 @@
 
 namespace fidt17.UnityValidationModule.Editor.Helpers
 {
-    public static class ValidatorEditorConstants
+    internal static class ValidatorEditorConstants
     {
         public static readonly Vector2 ValidatorWindowSize = new Vector2(550, 700);
         public static readonly Vector2 ValidatorSettingsWindowSize = new Vector2(240, 150);

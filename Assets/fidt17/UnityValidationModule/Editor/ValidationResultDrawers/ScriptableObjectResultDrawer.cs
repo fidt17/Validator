@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
 {
-    public class ScriptableObjectResultDrawer : BasicResultDrawer
+    internal class ScriptableObjectResultDrawer : BasicResultDrawer
     {
         private ScriptableObjectResultParser _parser;
 

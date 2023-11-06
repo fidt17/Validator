@@ -6,23 +6,16 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
 {
     public class UnityEventValidationAttribute : NotNullValidationAttribute
     {
-        public UnityEventValidationAttribute() : this(true, true)
-        {
-            
-        }
+        public UnityEventValidationAttribute() : this(true) { }
         
-        public UnityEventValidationAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation)
-        {
-            
-        }
+        public UnityEventValidationAttribute(bool validateInPrefab = true, bool recursiveValidation = true) : base(validateInPrefab, recursiveValidation) { }
 
         public override ValidationResult ValidateField(FieldInfo field, System.Object target)
         {
             var baseResult = base.ValidateField(field, target);
             if (baseResult.Result == false) return baseResult;
 
-            var unityEvent = field.GetValue(target) as UnityEvent;
-            if (unityEvent == null)
+            if (!(field.GetValue(target) is UnityEvent unityEvent))
             {
                 return new FailResult($"Incorrect [UnityEventValidationAttribute] attribute usage on {field.Name} @ {target.GetType()}. Field must derive from UnityEvent", target);
             }

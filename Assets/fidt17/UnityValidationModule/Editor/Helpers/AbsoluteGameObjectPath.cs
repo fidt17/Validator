@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace fidt17.UnityValidationModule.Editor.Helpers
 {
-	public class AbsoluteGameObjectPath
+	internal class AbsoluteGameObjectPath
 	{
 		private readonly string _scenePath;
 		private readonly string _gameObjectName;

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace fidt17.UnityValidationModule.Editor.ContextParsers
 {
     [ValidationResultParser(typeof(UnityEngine.Object))]
-    public class ScriptableObjectResultParser : DefaultResultParser
+    internal class ScriptableObjectResultParser : DefaultResultParser
     {
         public readonly ScriptableObject ScriptableObject;
         

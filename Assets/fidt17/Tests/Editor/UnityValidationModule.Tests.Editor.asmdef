@@ -1,5 +1,5 @@
 {
-    "name": "Editor",
+    "name": "UnityValidationModule.Tests.Editor",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 namespace fidt17.UnityValidationModule.Editor
 {
-	public class ValidatorBuildProcessor : IPreprocessBuildWithReport
+	internal class ValidatorBuildProcessor : IPreprocessBuildWithReport
 	{
 		public int callbackOrder { get; }
 		
