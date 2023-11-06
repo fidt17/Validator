@@ -45,7 +45,7 @@ namespace fidt17.UnityValidationModule.Editor
 
 			try
 			{
-				_mainView = new ValidatorMainView(this);
+				_mainView = new ValidatorMainView(this, ValidatorSettings.GetSettings());
 				_settingsView = new ValidatorSettingsView();
 				_menuView = new ValidatorMenuView(new List<ValidatorMenuView.MenuElement>
 				{
