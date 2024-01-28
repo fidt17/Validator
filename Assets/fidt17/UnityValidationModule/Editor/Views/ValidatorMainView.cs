@@ -18,11 +18,8 @@ namespace fidt17.UnityValidationModule.Editor.Views
 
         private int _currentResultsPage;
         private int _totalValidations;
-        private int _processedResults;
         private bool _validationRunning;
         
-        private static int _adaptiveYieldStep = 10;
-        private const int _yieldStepIncrease = 5;
         private Vector2 _scrollPosition;
 		
         private readonly ValidatorSettings _settings;
@@ -52,9 +49,7 @@ namespace fidt17.UnityValidationModule.Editor.Views
             _validationRunning = true;
 
             _totalValidations = 0;
-            _processedResults = 0;
             _currentResultsPage = 0;
-            _adaptiveYieldStep = 10;
             
             EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
             AssetDatabase.Refresh();
@@ -62,87 +57,66 @@ namespace fidt17.UnityValidationModule.Editor.Views
             var validationResults = new List<ValidationResult>();
             var newlyOpenedScenes = new List<Scene>();
 
-            Func<IEnumerable<ValidationResult>> getVLFunction = ValidationUtils.ValidateActiveScene;
-            switch (_settings.SelectedScope)
-            {
-                case ValidationScopeEnum.ActiveScene:
-                    getVLFunction = ValidationUtils.ValidateActiveScene;
-                    break;
-                
-                case ValidationScopeEnum.InBuildScenes:
-                    getVLFunction = () => ValidationUtils.ValidateInBuildScenes(newlyOpenedScenes, closeScenes: false);
-                    break;
-                
-                case ValidationScopeEnum.ProjectAssets:
-                    getVLFunction = ValidationUtils.ValidateProjectAssets;
-                    break;
-                
-                case ValidationScopeEnum.Everything:
-                    getVLFunction = () => ValidationUtils.ValidateEverything(newlyOpenedScenes, closeScenes: false);
-                    break;
-            }
+            var validator = new ValidationUtility();
+            var getVLFunction = GetValidationFunction(validator, newlyOpenedScenes);
 
-            int yieldCounter = 0;
+            var yieldCounter = 0;
+            var yieldStep = 10;
             foreach (var validationResult in getVLFunction.Invoke())
             {
                 _totalValidations++;
                 validationResults.Add(validationResult);
 
-                if (yieldCounter++ > _adaptiveYieldStep)
+                yieldCounter++;
+                if (yieldCounter > yieldStep)
                 {
+                    yieldStep += 10;
                     yieldCounter = 0;
-                    _adaptiveYieldStep += _yieldStepIncrease;
                     _window.Repaint();
                     await Task.Yield();
                 }
             }
 
-            await ProcessResults(validationResults);
+            CreateResultParsers(validationResults);
             
             newlyOpenedScenes.ForEach(x => EditorSceneManager.CloseScene(x, true));
             
             _validationRunning = false;
             _window.Repaint();
         }
-        
-        private async Task ProcessResults(List<ValidationResult> validationResults)
+
+        private Func<IEnumerable<ValidationResult>> GetValidationFunction(ValidationUtility validator, List<Scene> newlyOpenedScenes)
         {
-            int yieldCounter = 0;
-            //remove duplicate results
-            var clearResults = new List<ValidationResult>();
-            foreach (var validationResult in validationResults)
+            Func<IEnumerable<ValidationResult>> getVLFunction = validator.ValidateActiveScene;
+            switch (_settings.SelectedScope)
             {
-                if (validationResult.Result || clearResults.Exists(x => x.TargetContext == validationResult.TargetContext && x.Message == validationResult.Message))
-                {
-                    _processedResults++;
-                    if (yieldCounter++ > _adaptiveYieldStep)
-                    {
-                        yieldCounter = 0;
-                        _adaptiveYieldStep += _yieldStepIncrease;
-                        _window.Repaint();
-                        await Task.Yield();
-                    }
-                }
-                else
-                {
-                    clearResults.Add(validationResult);
-                }
+                case ValidationScopeEnum.ActiveScene:
+                    getVLFunction = validator.ValidateActiveScene;
+                    break;
+
+                case ValidationScopeEnum.InBuildScenes:
+                    getVLFunction = () => validator.ValidateInBuildScenes(newlyOpenedScenes, closeScenes: false);
+                    break;
+
+                case ValidationScopeEnum.ProjectAssets:
+                    getVLFunction = validator.ValidateProjectAssets;
+                    break;
+
+                case ValidationScopeEnum.Everything:
+                    getVLFunction = () => validator.ValidateEverything(newlyOpenedScenes, closeScenes: false);
+                    break;
             }
 
+            return getVLFunction;
+        }
+
+        private void CreateResultParsers(List<ValidationResult> validationResults)
+        {
             _resultParsers = new List<BaseResultParser>();
-            for (var resultIdx = 0; resultIdx < clearResults.Count; resultIdx++)
+            for (var resultIdx = 0; resultIdx < validationResults.Count; resultIdx++)
             {
-                _resultParsers.Add(ReflectionExtensions.GetContextParserFor(clearResults[resultIdx]));
-
-                _processedResults++;
-
-                if (yieldCounter++ > _adaptiveYieldStep)
-                {
-                    yieldCounter = 0;
-                    _adaptiveYieldStep += _yieldStepIncrease;
-                    _window.Repaint();
-                    await Task.Yield();
-                }
+                if (validationResults[resultIdx].Result) continue;
+                _resultParsers.Add(ReflectionExtensions.GetContextParserFor(validationResults[resultIdx]));
             }
         }
         
@@ -183,22 +157,11 @@ namespace fidt17.UnityValidationModule.Editor.Views
 
             EditorGUILayout.BeginVertical();
             {
-                if (_processedResults == 0)
+                EditorGUILayout.LabelField($"Validating... [{_totalValidations}]", new GUIStyle(GUI.skin.label)
                 {
-                    EditorGUILayout.LabelField($"Locating... [{_totalValidations}]", new GUIStyle(GUI.skin.label)
-                    {
-                        alignment = TextAnchor.UpperCenter,
-                        fontSize = 13
-                    });   
-                }
-                else
-                {
-                    EditorGUILayout.LabelField($"Processing... [{(_processedResults / (float) _totalValidations * 100):n2}%]", new GUIStyle(GUI.skin.label)
-                    {
-                        alignment = TextAnchor.UpperCenter,
-                        fontSize = 13
-                    });
-                }
+                    alignment = TextAnchor.UpperCenter,
+                    fontSize = 13
+                });   
             }
             EditorGUILayout.EndVertical();
         }

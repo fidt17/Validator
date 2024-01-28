@@ -22,7 +22,8 @@ namespace fidt17.UnityValidationModule.Editor
 			Debug.Log("Run prebuild validator");
 			
 			var openScenes = new List<Scene>();
-			Func<IEnumerable<ValidationResult>> validationFunction = () => ValidationUtils.ValidateEverything(openScenes);
+			var validator = new ValidationUtility();
+			Func<IEnumerable<ValidationResult>> validationFunction = () => validator.ValidateEverything(openScenes);
 
 			var results = validationFunction.Invoke().ToList();
 			var clearResults = new List<ValidationResult>();

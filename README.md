@@ -1,5 +1,5 @@
 # Unity Validator
-## Version : 1.0.8
+## Version : 1.0.9
 
 ## Installation
 1) Unity Package Manager
@@ -31,12 +31,10 @@ Specify Validation mode by selecting one of the options from dropdown menu
   [NotNullValidation(validateInPrefab: true, recursiveValidation: true)]
   public Object MyObject;
   ```
-  
-### NotNullCollection
+
   Fails if <b>MyCollection</b> or any of it's elements are null
-  > Field must be of type that implements <b>ICollection</b> interface
   ```csharp
-  [NotNullCollection(validateInPrefab: true, recursiveValidation: true)]
+  [NotNullValidation(validateInPrefab: true, recursiveValidation: true)]
   public IList<Object> MyCollection;
   ```
   
@@ -44,7 +42,7 @@ Specify Validation mode by selecting one of the options from dropdown menu
   Fails if <b>MyCollection</b> is null or empty
   > Field must be of type that implements <b>ICollection</b> interface
   ```csharp
-  [NotEmptyCollection(allowNullElements: true, validateInPrefab: true, recursiveValidation: true)]
+  [NotEmptyCollection(allowNullElements: false, validateInPrefab: true, recursiveValidation: true)]
   public ICollection<Object> MyCollection;
   ```
   

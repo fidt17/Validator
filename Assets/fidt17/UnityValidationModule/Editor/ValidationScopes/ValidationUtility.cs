@@ -8,15 +8,17 @@ using UnityEngine.SceneManagement;
 
 namespace fidt17.UnityValidationModule.Editor.ValidationScopes
 {
-    internal static class ValidationUtils
+    internal class ValidationUtility
     {
-        public static IEnumerable<ValidationResult> ValidateGameObject(GameObject gameObject)
+        private readonly Validator _validator = new Validator();
+        
+        public IEnumerable<ValidationResult> ValidateGameObject(GameObject gameObject)
         {
             if (gameObject == null) yield break;
 
             foreach (var monoBehaviour in gameObject.GetComponents<MonoBehaviour>())
             {
-                foreach (var validationResult in Validator.Validate(monoBehaviour))
+                foreach (var validationResult in _validator.Validate(monoBehaviour))
                 {
                     yield return validationResult;
                 }
@@ -31,19 +33,19 @@ namespace fidt17.UnityValidationModule.Editor.ValidationScopes
             }
         }
         
-        public static IEnumerable<ValidationResult> ValidateEverything(List<Scene> openedScenes, bool closeScenes = true)
+        public IEnumerable<ValidationResult> ValidateEverything(List<Scene> openedScenes, bool closeScenes = true)
         {
             foreach (var validationResult in ValidateProjectAssets()) yield return validationResult;
             foreach (var validationResult in ValidateInBuildScenes(openedScenes, closeScenes)) yield return validationResult;
         }
         
-        public static IEnumerable<ValidationResult> ValidateProjectAssets()
+        public IEnumerable<ValidationResult> ValidateProjectAssets()
         {
             foreach (var result in ValidateScriptableObjects()) yield return result;
             foreach (var result in ValidatePrefabs()) yield return result;
         }
         
-        public static IEnumerable<ValidationResult> ValidateInBuildScenes(List<Scene> openedScenes, bool closeScenes = true)
+        public IEnumerable<ValidationResult> ValidateInBuildScenes(List<Scene> openedScenes, bool closeScenes = true)
         {
             var activeScene = SceneManager.GetActiveScene();
 
@@ -79,9 +81,9 @@ namespace fidt17.UnityValidationModule.Editor.ValidationScopes
             }
         }
         
-        public static IEnumerable<ValidationResult> ValidateActiveScene() => ValidateScene(SceneManager.GetActiveScene());
-
-        private static IEnumerable<ValidationResult> ValidatePrefabs()
+        public IEnumerable<ValidationResult> ValidateActiveScene() => ValidateScene(SceneManager.GetActiveScene());
+        
+        private IEnumerable<ValidationResult> ValidatePrefabs()
         {
             var guids = AssetDatabase.FindAssets("t:Prefab");
             for (var guidIdx = 0; guidIdx < guids.Length; guidIdx++)
@@ -92,18 +94,18 @@ namespace fidt17.UnityValidationModule.Editor.ValidationScopes
             }
         }
 
-        private static IEnumerable<ValidationResult> ValidateScriptableObjects()
+        private IEnumerable<ValidationResult> ValidateScriptableObjects()
         {
             var guids = AssetDatabase.FindAssets("t:ScriptableObject");
             for (var guidIdx = 0; guidIdx < guids.Length; guidIdx++)
             {
                 var guid = guids[guidIdx];
                 var so = AssetDatabase.LoadAssetAtPath<ScriptableObject>(AssetDatabase.GUIDToAssetPath(guid));
-                foreach (var validationResult in Validator.Validate(so)) yield return validationResult;
+                foreach (var validationResult in _validator.Validate(so)) yield return validationResult;
             }
         }
 
-        private static IEnumerable<ValidationResult> ValidateScene(Scene scene)
+        private IEnumerable<ValidationResult> ValidateScene(Scene scene)
         {
             if (!SceneManager.GetSceneByName(scene.name).isLoaded)
             {
@@ -114,7 +116,7 @@ namespace fidt17.UnityValidationModule.Editor.ValidationScopes
             
             foreach (var rootObject in rootObjects)
             {
-                foreach (var validationResult in ValidationUtils.ValidateGameObject(rootObject))
+                foreach (var validationResult in ValidateGameObject(rootObject))
                 {
                     yield return validationResult;
                 }

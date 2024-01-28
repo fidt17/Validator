@@ -14,7 +14,7 @@ using Object = UnityEngine.Object;
 
 namespace fidt17.UnityValidationModule.Editor
 {
-    internal static class Validator
+    internal class Validator
     {
         private struct FieldAttributePair
         {
@@ -28,12 +28,14 @@ namespace fidt17.UnityValidationModule.Editor
             public BaseMethodValidationAttribute Attribute;
         }
 
-        private static Dictionary<Type, List<FieldAttributePair>> _cachedValidationFields;
-        private static Dictionary<Type, List<MethodAttributePair>> _cachedValidationMethods;
+        private readonly Dictionary<Type, List<FieldAttributePair>> _cachedValidationFields = new Dictionary<Type, List<FieldAttributePair>>();
+        private readonly Dictionary<Type, List<MethodAttributePair>> _cachedValidationMethods = new Dictionary<Type, List<MethodAttributePair>>();
+        private readonly HashSet<System.Object> _validatedObjects = new HashSet<object>();
 
-        public static IEnumerable<ValidationResult> Validate(System.Object validationTarget, HashSet<System.Object> alreadyValidated = null, Object lastContext = null)
+        public IEnumerable<ValidationResult> Validate(System.Object validationTarget, HashSet<System.Object> alreadyValidated = null, Object lastContext = null)
         {
-            if (validationTarget == null) yield break;
+            if (validationTarget == null || _validatedObjects.Contains(validationTarget)) yield break;
+            _validatedObjects.Add(validationTarget);
             
             alreadyValidated ??= new HashSet<System.Object>();
             if (alreadyValidated.Contains(validationTarget)) yield break;
@@ -55,9 +57,8 @@ namespace fidt17.UnityValidationModule.Editor
             }
         }
 
-        private static void FindValidationFields(Type type)
+        private void FindValidationFields(Type type)
         {
-            _cachedValidationFields ??= new Dictionary<Type, List<FieldAttributePair>>();
             if (_cachedValidationFields.ContainsKey(type)) return;
             
             _cachedValidationFields[type] = new List<FieldAttributePair>();
@@ -74,9 +75,8 @@ namespace fidt17.UnityValidationModule.Editor
             }
         }
 
-        private static void FindValidationMethods(Type type)
+        private void FindValidationMethods(Type type)
         {
-            _cachedValidationMethods ??= new Dictionary<Type, List<MethodAttributePair>>();
             if (_cachedValidationMethods.ContainsKey(type)) return;
             
             _cachedValidationMethods[type] = new List<MethodAttributePair>();
@@ -94,7 +94,7 @@ namespace fidt17.UnityValidationModule.Editor
             }
         }
 
-        private static IEnumerable<ValidationResult> ValidateFields(System.Object validationTarget, Object lastContext, HashSet<System.Object> alreadyValidated = null)
+        private IEnumerable<ValidationResult> ValidateFields(System.Object validationTarget, Object lastContext, HashSet<System.Object> alreadyValidated = null)
         {
             var targetType = validationTarget.GetType();
             
@@ -141,7 +141,7 @@ namespace fidt17.UnityValidationModule.Editor
             }
         }
 
-        private static IEnumerable<ValidationResult> ValidateMethods(System.Object validationTarget)
+        private IEnumerable<ValidationResult> ValidateMethods(System.Object validationTarget)
         {
             var targetType = validationTarget.GetType();
             var validationMethods = _cachedValidationMethods[targetType];

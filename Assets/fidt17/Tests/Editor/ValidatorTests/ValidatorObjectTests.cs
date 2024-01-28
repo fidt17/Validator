@@ -55,7 +55,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
         public void TestValidateNonValidatableObject()
         {
             var instance = new TestNonValidatableClass();
-            Assert.That(Validator.Validate(instance).Count() == 0);
+            Assert.That(new Validator().Validate(instance).Count() == 0);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
             rootClass.NotNullLoopChild = new TestLoopChildClass();
             rootClass.NotNullLoopChild.RootClass = rootClass;
 
-            Assert.That(Validator.Validate(rootClass).Count() == 8);
+            Assert.That(new Validator().Validate(rootClass).Count() == 8);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace fidt17.Tests.Editor.ValidatorTests
                 Field = new TestLoopChildClass()
             });
 
-            Assert.That(Validator.Validate(rootClass).Count() == 9);
+            Assert.That(new Validator().Validate(rootClass).Count() == 9);
         }
     }
 }

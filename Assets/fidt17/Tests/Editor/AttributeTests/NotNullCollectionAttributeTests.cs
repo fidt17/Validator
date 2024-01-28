@@ -11,10 +11,10 @@ namespace fidt17.Tests.Editor.AttributeTests
     {
         private class TestClass
         {
-            [NotNullCollection] public List<Object> NullField;
-            [NotNullCollection] public Object IncorrectField;
-            [NotNullCollection] public Dictionary<int, int> EmptyCollection = new Dictionary<int, int>();
-            [NotNullCollection] public List<string> ListCollection = new List<string>();
+            [NotNullValidation] public List<Object> NullField;
+            [NotNullValidation] public Object IncorrectField;
+            [NotNullValidation] public Dictionary<int, int> EmptyCollection = new Dictionary<int, int>();
+            [NotNullValidation] public List<string> ListCollection = new List<string>();
         }
         
         [Test]
@@ -48,7 +48,7 @@ namespace fidt17.Tests.Editor.AttributeTests
             var f = instance.GetType().GetField(nameof(TestClass.EmptyCollection));
             Assert.That(() =>
             {
-                var attribute = (NotNullValidationAttribute)f.GetCustomAttribute(typeof(NotNullCollectionAttribute));
+                var attribute = (NotNullValidationAttribute)f.GetCustomAttribute(typeof(NotNullValidationAttribute));
                 return attribute.ValidateField(f, instance).Result == true;
             });
         }
@@ -68,7 +68,7 @@ namespace fidt17.Tests.Editor.AttributeTests
             var f = instance.GetType().GetField(nameof(TestClass.ListCollection));
             Assert.That(() =>
             {
-                var attribute = (NotNullValidationAttribute)f.GetCustomAttribute(typeof(NotNullCollectionAttribute));
+                var attribute = (NotNullValidationAttribute)f.GetCustomAttribute(typeof(NotNullValidationAttribute));
                 return attribute.ValidateField(f, instance).Result == true;
             });
         }
@@ -89,7 +89,7 @@ namespace fidt17.Tests.Editor.AttributeTests
             var f = instance.GetType().GetField(nameof(TestClass.ListCollection));
             Assert.That(() =>
             {
-                var attribute = (NotNullValidationAttribute)f.GetCustomAttribute(typeof(NotNullCollectionAttribute));
+                var attribute = (NotNullValidationAttribute)f.GetCustomAttribute(typeof(NotNullValidationAttribute));
                 return attribute.ValidateField(f, instance).Result == false;
             });
         }

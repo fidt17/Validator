@@ -4,7 +4,7 @@ using fidt17.UnityValidationModule.Runtime.ValidationResults;
 
 namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.CollectionFieldAttributes
 {
-    public class NotEmptyCollectionAttribute : NotNullValidationAttribute
+    public class NotEmptyCollectionAttribute : FieldValidationAttribute
     {
         private readonly bool _allowNullElements;
         
@@ -22,9 +22,6 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes.Collec
                 return new FailResult($"Incorrect [NotNullCollection] attribute usage on {field.Name} at {target.GetType()}. Field must derive from ICollection", target);
             }
 
-            var baseResult = base.ValidateField(field, target);
-            if (baseResult.Result == false) return baseResult;
-            
             if (collection.Count == 0)
             {
                 return new FailResult($"Collection {field.Name} on {target.GetType().Name} must not be empty.", target);
