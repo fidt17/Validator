@@ -36,8 +36,12 @@ namespace fidt17.UnityValidationModule.Editor
         {
             if (validationTarget == null || _validatedObjects.Contains(validationTarget)) yield break;
             _validatedObjects.Add(validationTarget);
+
+            if (alreadyValidated == null)
+            {
+                alreadyValidated = new HashSet<System.Object>();
+            }
             
-            alreadyValidated ??= new HashSet<System.Object>();
             if (alreadyValidated.Contains(validationTarget)) yield break;
             
             alreadyValidated.Add(validationTarget);
