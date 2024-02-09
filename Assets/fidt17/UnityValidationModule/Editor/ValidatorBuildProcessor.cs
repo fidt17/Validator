@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using fidt17.UnityValidationModule.Editor.ValidationScopes;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;

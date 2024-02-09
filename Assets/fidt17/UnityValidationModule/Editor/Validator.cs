@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using fidt17.UnityValidationModule.Editor.Helpers;
+using fidt17.UnityValidationModule.Runtime;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
@@ -14,7 +15,7 @@ using Object = UnityEngine.Object;
 
 namespace fidt17.UnityValidationModule.Editor
 {
-    internal class Validator
+    public class Validator
     {
         private struct FieldAttributePair
         {
@@ -31,6 +32,11 @@ namespace fidt17.UnityValidationModule.Editor
         private readonly Dictionary<Type, List<FieldAttributePair>> _cachedValidationFields = new Dictionary<Type, List<FieldAttributePair>>();
         private readonly Dictionary<Type, List<MethodAttributePair>> _cachedValidationMethods = new Dictionary<Type, List<MethodAttributePair>>();
         private readonly HashSet<System.Object> _validatedObjects = new HashSet<object>();
+
+        public Validator()
+        {
+            ValidationSession.Reset();
+        }
 
         public IEnumerable<ValidationResult> Validate(System.Object validationTarget, HashSet<System.Object> alreadyValidated = null, Object lastContext = null)
         {

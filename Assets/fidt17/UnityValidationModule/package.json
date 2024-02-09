@@ -1,6 +1,6 @@
 {
     "name": "com.fidt17.uvm",
-    "version": "1.0.9",
+    "version": "1.1.0",
     "displayName": "Validator",
     "description": "Tool for validating assets and scenes.",
     "unity": "2020.3",

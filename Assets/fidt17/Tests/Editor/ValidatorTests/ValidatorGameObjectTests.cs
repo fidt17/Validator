@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using fidt17.UnityValidationModule.Editor;
-using fidt17.UnityValidationModule.Editor.ValidationScopes;
 using fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes;
 using NUnit.Framework;
 using UnityEngine;

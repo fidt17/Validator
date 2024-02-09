@@ -6,12 +6,12 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace fidt17.UnityValidationModule.Editor.ValidationScopes
+namespace fidt17.UnityValidationModule.Editor
 {
     internal class ValidationUtility
     {
         private readonly Validator _validator = new Validator();
-        
+
         public IEnumerable<ValidationResult> ValidateGameObject(GameObject gameObject)
         {
             if (gameObject == null) yield break;

@@ -22,7 +22,7 @@ namespace fidt17.Tests.Runtime
         [NotNullValidation] public ClassFromSo CFS7;
         [NotNullValidation] public ClassFromSo CFS8;
         [NotNullValidation] public ClassFromSo CFS9;
-
+        [UniqueValidation(nameof(TestScriptableObject))] public string Id;
         
         [Serializable]
         public class ClassFromSo

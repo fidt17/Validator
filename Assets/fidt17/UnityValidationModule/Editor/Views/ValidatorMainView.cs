@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using fidt17.UnityValidationModule.Editor.ContextParsers;
 using fidt17.UnityValidationModule.Editor.Helpers;
-using fidt17.UnityValidationModule.Editor.ValidationScopes;
 using fidt17.UnityValidationModule.Runtime.ValidationResults;
 using UnityEditor;
 using UnityEditor.SceneManagement;
