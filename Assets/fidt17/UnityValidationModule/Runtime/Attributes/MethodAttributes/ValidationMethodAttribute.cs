@@ -21,18 +21,18 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.MethodAttributes
         {
             if (method.ReturnType != typeof(bool))
             {
-                return new FailResult($"Incorrect [ValidationMethod] attribute usage on {method.Name} @ {target.GetType()}. Method must return bool.", target);
+                return new FailResult($"Incorrect [ValidationMethod] attribute usage on {method.Name}. \nMethod must return bool. {GetTypeMessage(method, target)}", target);
             }
 
             if (method.GetParameters().Length != 0)
             {
-                return new FailResult($"Incorrect [ValidationMethod] attribute usage on {method.Name} @ {target.GetType()}. Method mustn't have parameters.", target);
+                return new FailResult($"Incorrect [ValidationMethod] attribute usage on {method.Name} \nMethod mustn't have parameters. {GetTypeMessage(method, target)}", target);
             }
 
             var result = (bool) method.Invoke(target, null);
             return result
                 ? (ValidationResult) new PassResult()
-                : new FailResult(string.IsNullOrEmpty(_message) ? $"Validation method {method.Name} of {target.GetType()} failed." : _message, target);
+                : new FailResult(string.IsNullOrEmpty(_message) ? $"Validation method {method.Name} failed. {GetTypeMessage(method, target)}" : _message + GetTypeMessage(method, target), target);
         }
     }
 }

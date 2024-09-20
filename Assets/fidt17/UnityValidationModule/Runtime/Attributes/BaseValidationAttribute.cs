@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace fidt17.UnityValidationModule.Runtime.Attributes
 {
@@ -19,6 +20,11 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes
             #else
             return true;
             #endif
-        } 
+        }
+
+        protected string GetTypeMessage(MemberInfo memberInfo, object target)
+        {
+            return $"\nType: {target.GetType()}.{memberInfo.Name}";
+        }
     }
 }

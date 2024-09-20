@@ -20,7 +20,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
             var value = field.GetValue(target);
             if (UnityExtensions.IsUnityNull(value))
             {
-                return new FailResult($"Field \"{field.Name}\" of {target.GetType().Name} is missing.", target);
+                return new FailResult($"{field.Name} is missing. {GetTypeMessage(field, target)}", target);
             }
 
             return new PassResult(targetContext: target);
@@ -30,7 +30,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
         {
             if (!(field.GetValue(target) is ICollection collection))
             {
-                return new FailResult($"Incorrect [NotNullValidation] attribute usage on {field.Name} @ {target.GetType()}. Field must derive from ICollection", target);
+                return new FailResult($"Incorrect [NotNullValidation] attribute usage on {field.Name}. \nField must derive from ICollection. {GetTypeMessage(field, target)}", target);
             }
             
             var baseResult = base.ValidateField(field, target);
@@ -40,7 +40,7 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
             {
                 if (UnityExtensions.IsUnityNull(element))
                 {
-                    return new FailResult($"Element of collection of type {field.FieldType} on {target.GetType()} is missing.", target);
+                    return new FailResult($"Element of collection {field.Name} is missing. {GetTypeMessage(field, target)}", target);
                 }
             }
 

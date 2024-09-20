@@ -25,8 +25,8 @@ namespace fidt17.UnityValidationModule.Editor.ValidationResultDrawers
         {
             var path = ValidatorEditorUtils.SplitStringInLinesToFit($"Path: {_parser.Path}", ValidatorEditorConstants.MessageFontSize,
                 ValidatorEditorConstants.ValidatorWindowSize.x - 20);
-            return $"{path}" +
-                   $"\n{base.GetResultMessage()}";
+            return $"{base.GetResultMessage()}" +
+                   $"\nPath: {path}";
         }
     }
 }

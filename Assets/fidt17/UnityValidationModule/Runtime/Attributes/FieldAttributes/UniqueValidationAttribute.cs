@@ -9,10 +9,12 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
     public class UniqueValidationAttribute : FieldValidationAttribute
     {
         private readonly string _groupName;
+        private readonly string _notAssignedIdValue;
 
-        public UniqueValidationAttribute(string groupName)
+        public UniqueValidationAttribute(string groupName, string notAssignedIdValue = "NaN")
         {
             _groupName = groupName;
+            _notAssignedIdValue = notAssignedIdValue;
         }
         
         public override ValidationResult ValidateField(FieldInfo field, object target)
@@ -32,14 +34,19 @@ namespace fidt17.UnityValidationModule.Runtime.Attributes.FieldAttributes
 
             var value = field.GetValue(target);
 
+            if (value is string str1 && str1 == _notAssignedIdValue)
+            {
+                return new PassResult(); // todo: might want to store these results in "warning" group
+            }
+
             if (value == null || value is string str && string.IsNullOrWhiteSpace(str))
             {
-                return new FailResult($"ID is null or empty. Group {_groupName}.\n{target.GetType().Name} {field.Name}.", target);
+                return new FailResult($"ID is null or empty in group {_groupName}. \nYou may use {_notAssignedIdValue} as value if this is expected behaviour. {GetTypeMessage(field, target)}", target);
             }
 
             if (typeToIdMap[_groupName].Contains(value))
             {
-                return new FailResult($"ID {value} is already taken in group {_groupName}.\n{target.GetType().Name} {field.Name}.", target);
+                return new FailResult($"ID {value} is already taken in group {_groupName}.{GetTypeMessage(field, target)}", target);
             }
 
             typeToIdMap[_groupName].Add(value);

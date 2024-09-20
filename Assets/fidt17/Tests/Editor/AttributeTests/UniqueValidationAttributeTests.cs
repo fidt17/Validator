@@ -16,7 +16,7 @@ namespace fidt17.Tests.Editor.AttributeTests
         
         private class TestClassA
         {
-            [UniqueValidation("groupA")] public string Id;
+            [UniqueValidation("groupA", notAssignedIdValue: "NONE")] public string Id;
 
             public TestClassA(string id)
             {
@@ -160,6 +160,24 @@ namespace fidt17.Tests.Editor.AttributeTests
                 var validator = new Validator();
                 var failCount = validator.Validate(instance).Count(x => !x.Result);
                 return failCount == 2;
+            });
+        }
+
+        [Test]
+        public void TestNotAssignedValue()
+        {
+            var instance = new TestCollection
+            {
+                A = new List<TestClassA>
+                {
+                    new TestClassA("NONE"),
+                    new TestClassA("NONE"),
+                }
+            };
+            Assert.That(() =>
+            {
+                var validator = new Validator();
+                return validator.Validate(instance).Count(x => !x.Result) == 0;
             });
         }
     }
