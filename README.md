@@ -1,4 +1,13 @@
 # Unity Validator
+Validator is a utility for validating Unity assets (scenes, prefabs, ScriptableObjects).
+
+## Features
+- Validate scenes, prefabs, and ScriptableObjects with a single tool
+- Validation modes for active scene, build scenes, project assets, or everything
+- Attribute-based validations and custom validation methods
+- Optional build-time validation with fail-fast behavior
+
+## Release
 Version : 1.1.1
 
 ## Installation
@@ -10,7 +19,7 @@ Version : 1.1.1
 
 Run validator either by pressing [Alt+V] or by navigating to "Tools/Validator/Validator Window"
 
-![](Screenshots/Validator%20Window%20Screenshot%20Main.png?raw=true))
+![](Screenshots/Validator%20Window%20Screenshot%20Main.png?raw=true)
 
 Specify Validation mode by selecting one of the options from dropdown menu
 - "Active Scene": Validate all objects on loaded scene
